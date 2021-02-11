@@ -1,0 +1,98 @@
+export const imagesListMockData = [
+  {
+    id: 1,
+    specie: 'cat',
+    title: 'Great egret',
+    picURL: 'https://cdn2.thecatapi.com/images/dfn.jpg',
+  },
+  {
+    id: 2,
+    specie: 'cat',
+    title: 'Black-footed',
+    picURL: 'https://cdn2.thecatapi.com/images/9vo.jpg',
+  },
+  {
+    id: 3,
+    specie: 'cat',
+    title: 'Guanaco',
+    picURL: 'https://cdn2.thecatapi.com/images/Jw6LB4h_O.jpg',
+  },
+  {
+    id: 4,
+    specie: 'cat',
+    title: 'Tinamou',
+    picURL: 'https://cdn2.thecatapi.com/images/MTkyNDQ1Nw.jpg',
+  },
+  {
+    id: 5,
+    specie: 'cat',
+    title: 'Fox North',
+    picURL: 'https://cdn2.thecatapi.com/images/buo.jpg',
+  },
+  {
+    id: 6,
+    specie: 'cat',
+    title: 'Malleefowl',
+    picURL: 'https://cdn2.thecatapi.com/images/47s.jpg',
+  },
+  {
+    id: 7,
+    specie: 'cat',
+    title: 'Prairie',
+    picURL: 'https://cdn2.thecatapi.com/images/q7FO7tP6f.jpg',
+  },
+  {
+    id: 8,
+    specie: 'cat',
+    title: 'Kookaburra',
+    picURL: 'https://cdn2.thecatapi.com/images/b8q.jpg',
+  },
+  {
+    id: 9,
+    specie: 'dog',
+    title: 'Flycatcher',
+    picURL: 'https://images.dog.ceo/breeds/maltese/n02085936_10447.jpg',
+  },
+  {
+    id: 10,
+    specie: 'dog',
+    title: 'Whale',
+    picURL: 'https://random.dog/c61a3df2-abe3-4b0a-84ee-d036f8696814.jpg',
+  },
+  {
+    id: 11,
+    specie: 'dog',
+    title: 'Glider',
+    picURL: 'https://random.dog/824745ce-712d-4085-8fbc-4ec6b8447b8e.jpg',
+  },
+  {
+    id: 12,
+    specie: 'dog',
+    title: 'Howler',
+    picURL: 'https://random.dog/5f2228be-01e8-421a-9fc3-47b9daa4740b.jpg',
+  },
+  {
+    id: 13,
+    specie: 'dog',
+    title: 'Weaver',
+    picURL: 'https://random.dog/24178-5036-5513.jpg',
+  },
+  {
+    id: 14,
+    specie: 'dog',
+    title: 'Harbor',
+    picURL: 'https://random.dog/1bc616d0-d15d-4b7c-a089-42617d9af334.jpg',
+  },
+  {
+    id: 15,
+    specie: 'dog',
+    title: 'Mongoose',
+    picURL: 'https://random.dog/1f3a23fe-27b3-413c-b1bd-3cd18e2ef970.jpg',
+  },
+  {
+    id: 16,
+    specie: 'dog',
+    title: 'Brown',
+    picURL: 'https://random.dog/c5421793-3bfc-4f58-aae2-4c573100f162.jpg',
+  },
+];
