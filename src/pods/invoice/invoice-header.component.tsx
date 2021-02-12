@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import * as invoiceStyles from './invoice.styles';
+import { SentDialogComponent } from './componentes/invoice.sent.dialog';
 
 interface Props {
   invoiceHeader: InvoiceHeader;
@@ -29,13 +30,14 @@ export const InvoiceHeaderComponent: React.FC<Props> = props => {
   const { invoiceHeader, getItemsStatus } = props;
   const [invoiceDate, setInvoiceDate] = React.useState<Date | null>();
   const [sendButtonStatus, setSendButtonStatus] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleDateChange = (date: Date) => {
     setInvoiceDate(date);
   };
 
   const handleSending = () => {
-    return;
+    setOpen(true);
   };
 
   React.useEffect(() => {
@@ -47,6 +49,7 @@ export const InvoiceHeaderComponent: React.FC<Props> = props => {
 
   return (
     <>
+      <SentDialogComponent open={open} setOpen={setOpen} />
       <div className={invoiceStyles.invoiceHeaderContainer}>
         <div className={invoiceStyles.invoiceHeaderLine}>
           <div className={invoiceStyles.invoiceHeaderLineItem}>

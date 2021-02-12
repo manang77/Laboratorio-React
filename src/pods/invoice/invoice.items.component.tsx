@@ -21,6 +21,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useHistory } from 'react-router-dom';
 import { routes } from 'core/router';
 import * as invoiceStyles from './invoice.styles';
+import EditIcon from '@material-ui/icons/Edit';
+import { PriceUpdateComponent } from './componentes';
 
 interface Props {
   invoiceItemsList: InvoiceLineVm[];
@@ -60,6 +62,11 @@ export const InvoiceItemsComponent: React.FC<Props> = props => {
   );
   const history = useHistory();
 
+  const [open, setOpen] = React.useState(false);
+  const [index, setIndex] = React.useState(0);
+  const [price, setPrice] = React.useState(0);
+  const [editedProduct, setEditedProduct] = React.useState('');
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -68,15 +75,34 @@ export const InvoiceItemsComponent: React.FC<Props> = props => {
     history.push(routes.invoices);
   };
 
+  const handleEditClickButton = (index: number) => {
+    setIndex(index);
+    setPrice(invoiceItemsList[index].price);
+    setEditedProduct(invoiceItemsList[index].product);
+    setOpen(true);
+  };
+
+  const updateProductPrice = (newPrice: number) => {
+    const itemsList = invoiceItemsList.map((item, i) => {
+      if (i === index) {
+        const updatedItem = { ...item, price: newPrice };
+        return updatedItem;
+      } else {
+        return item;
+      }
+    });
+    updateInvoiceItemsList(itemsList);
+  };
+
   const updateItemsStatus = (action: string) => {
     const itemsList = invoiceItemsList.map((item: InvoiceLineVm, itemIndex) => {
       if (selStatus[itemIndex]) {
-        const mewStatus = action === actionValidate ? true : false;
+        const newStatus = action === actionValidate ? true : false;
         const newStatusDescription =
           action === actionValidate ? actionValidate : actionCancel;
         const updatedItem: InvoiceLineVm = {
           ...item,
-          itemStatus: mewStatus,
+          itemStatus: newStatus,
           itemStatusDescription: newStatusDescription,
         };
         return updatedItem;
@@ -119,6 +145,13 @@ export const InvoiceItemsComponent: React.FC<Props> = props => {
 
   return (
     <>
+      <PriceUpdateComponent
+        open={open}
+        editedProduct={editedProduct}
+        price={price}
+        setOpen={setOpen}
+        updateProductPrice={updateProductPrice}
+      />
       <div className={invoiceStyles.invoiceItemsButtonsContainer}>
         <Button
           variant="contained"
@@ -154,6 +187,9 @@ export const InvoiceItemsComponent: React.FC<Props> = props => {
                 <StyledTableCell align="center" width={70}>
                   PRICE
                 </StyledTableCell>
+                <StyledTableCell align="center" width={5}>
+                  EDIT
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -184,6 +220,13 @@ export const InvoiceItemsComponent: React.FC<Props> = props => {
                           style: 'currency',
                           currency: 'EUR',
                         })}
+                      </StyledTableCell>
+                      <StyledTableCell align={'center'}>
+                        <IconButton
+                          onClick={() => handleEditClickButton(index)}
+                        >
+                          <EditIcon fontSize="small" color="primary" />
+                        </IconButton>
                       </StyledTableCell>
                     </TableRow>
                   );

@@ -1,11 +1,20 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { InvoiceHeader, InvoiceVm, InvoiceLineVm, getNewInvoiceHeader } from './invoice.vm';
+import {
+  InvoiceHeader,
+  InvoiceVm,
+  InvoiceLineVm,
+  getNewInvoiceHeader,
+} from './invoice.vm';
 import { getInvoice } from './invoice.api.vm';
 import { InvoiceHeaderComponent } from './invoice-header.component';
 import { InvoiceItemsComponent } from './invoice.items.component';
 import * as invoiceStyles from './invoice.styles';
-import { calculatePercentage, calculateValidatedAmount } from './invoice.utils';
+import {
+  calculatePercentage,
+  calculateValidatedAmount,
+  calculateTotalAmount,
+} from './invoice.utils';
 
 interface InvoiceParams {
   id: string;
@@ -29,6 +38,7 @@ export const InvoiceContainer: React.FC = () => {
     setInvoiceItems(items);
     const newHeader: InvoiceHeader = {
       ...invoiceHeader,
+      amount: calculateTotalAmount(items),
       percentageValidated: calculatePercentage(items),
       validatedAmount: calculateValidatedAmount(items),
     };

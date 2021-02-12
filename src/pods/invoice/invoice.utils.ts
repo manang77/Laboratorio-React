@@ -17,7 +17,14 @@ export const calculateValidatedAmount = (items: InvoiceLineVm[]): number => {
     if (item.itemStatus) {
       acum = acum + item.price;
     }
-    return parseFloat(acum.toFixed(2));
+    return Number(acum.toFixed(2));
   }, 0);
   return validatedAmount;
+};
+
+export const calculateTotalAmount = (items: InvoiceLineVm[]): number => {
+  const totalAmount = Number(
+    items.reduce((acum, item) => acum + item.price, 0).toFixed(2)
+  );
+  return totalAmount;
 };
