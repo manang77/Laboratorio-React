@@ -10,7 +10,10 @@ export interface ServerPagesCalculation {
   pos22?: number;
 }
 
-export const calculateServerPages = (page: number): ServerPagesCalculation => {
+export const calculateServerPages = (
+  page: number,
+  totalChars?: number
+): ServerPagesCalculation => {
   const serverPagesCalculation: ServerPagesCalculation = {
     dataPage1: 0,
     dataPage2: 0,
@@ -22,16 +25,28 @@ export const calculateServerPages = (page: number): ServerPagesCalculation => {
   serverPagesCalculation.dataPage1 = Math.ceil(
     ((page - 1) * pageSize + 1) / serverPageSize
   );
-  serverPagesCalculation.dataPage2 = Math.ceil(
-    (page * pageSize) / serverPageSize
-  );
+
+  if (
+    totalChars &&
+    serverPagesCalculation.dataPage1 === Math.ceil(totalChars / serverPageSize)
+  ) {
+    serverPagesCalculation.dataPage2 = serverPagesCalculation.dataPage1;
+  } else {
+    serverPagesCalculation.dataPage2 = Math.ceil(
+      (page * pageSize) / serverPageSize
+    );
+  }
 
   if (serverPagesCalculation.dataPage1 === serverPagesCalculation.dataPage2) {
     serverPagesCalculation.pos11 = ((page - 1) * pageSize) % serverPageSize;
-    serverPagesCalculation.pos12 =
-      (page * pageSize) % serverPageSize !== 0
-        ? (page * pageSize) % serverPageSize
-        : serverPageSize;
+    if (totalChars && totalChars < page * pageSize) {
+      serverPagesCalculation.pos12 = serverPageSize;
+    } else {
+      serverPagesCalculation.pos12 =
+        (page * pageSize) % serverPageSize !== 0
+          ? (page * pageSize) % serverPageSize
+          : serverPageSize;
+    }
   } else {
     serverPagesCalculation.pos11 = ((page - 1) * pageSize) % serverPageSize;
     serverPagesCalculation.pos12 = serverPageSize;

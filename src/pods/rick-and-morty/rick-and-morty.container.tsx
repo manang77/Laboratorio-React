@@ -28,6 +28,7 @@ export const RickAndMortyContainer: React.FC = () => {
   const [messageState, setMessageState] = React.useState(true);
   const [initialPageLoad, setInitialPageLoad] = React.useState(true);
   const [debouncedSearchText] = useDebounce(searchText, 500);
+  const [totalChars, setTotalChars] = React.useState(0);
 
   const updateServerPages = (page: number, data: RickAndMortyDataVm[]) => {
     const dataServerNewPage = {};
@@ -69,6 +70,8 @@ export const RickAndMortyContainer: React.FC = () => {
       debouncedSearchText
     );
     const totalCharactersCount = firstDataPage.config.count;
+    setTotalChars(totalCharactersCount);
+
     if (totalCharactersCount > 0) {
       updateServerPages(
         serverPages.dataPage1,
@@ -94,7 +97,10 @@ export const RickAndMortyContainer: React.FC = () => {
   };
 
   const loadVisualizationPage = async (page: number) => {
-    const serverPages: ServerPagesCalculation = calculateServerPages(page);
+    const serverPages: ServerPagesCalculation = calculateServerPages(
+      page,
+      totalChars
+    );
     const characterData1 = await getDataFromServerPages(
       serverPages.dataPage1,
       serverPages.pos11,
@@ -132,6 +138,12 @@ export const RickAndMortyContainer: React.FC = () => {
       setRickAndMortyNavigationPage(currentPage);
     }
   }, [currentPage]);
+
+  React.useEffect (() => {
+    if (rickAndMortyNavigationPage !== 0) {
+      setCurrentPage(-1);
+    }
+  }, []);
 
   const setPageContainer = React.useCallback((newPage: number) => {
     setRickAndMortyNavigationPage(newPage);
